@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.Color;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,12 +15,7 @@ public class ListePersonnes extends JPanel {
 		JButton butCreate = new JButton("Créer");
 		JLabel list = new JLabel();
 		
-		//if admin ou pas
-		if(this.getIgnoreRepaint()) {
-			list.setText("text reçu de la bdd - la totale");
-		} else {
-			list.setText("text reçu de la bdd - juste nom/prénom");
-		}
+		list.setText("text reçu de la bdd - juste nom/prénom");
 		
 		//if admin ou pas
 		if(this.getIgnoreRepaint()) {
@@ -42,6 +36,5 @@ public class ListePersonnes extends JPanel {
 		list.setBackground(Color.green);
 		list.setVerticalAlignment(SwingConstants.TOP);
 		
-		setVisible(true);
 	}
 }
