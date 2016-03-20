@@ -5,13 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.text.ParseException;
-import com.mysql.jdbc.PreparedStatement;
-
-import javafx.util.converter.LocalDateStringConverter;
+import java.util.ArrayList;
 
 
 public class BaseDeDonnees {
@@ -38,7 +33,7 @@ public class BaseDeDonnees {
 		rs.last();
 		
 		if (rs.getRow() > 0) return true;
-		return false;
+		return false;}
 	
 		
 	// Recupérer toutes les personnes

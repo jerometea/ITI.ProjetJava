@@ -3,9 +3,6 @@ package logical;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-
-import javafx.util.converter.LocalDateStringConverter;
 
 public class Test {
 
