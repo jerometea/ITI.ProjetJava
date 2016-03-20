@@ -14,17 +14,18 @@ import javax.swing.JTextField;
 import logical.BaseDeDonnees;
 import logical.Personne;
 
-public class CreatePerson extends JFrame implements ActionListener {
+public class ModifyPerson extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 	BaseDeDonnees bdd;
 	JTextField TNom, TPrenom, TAdresse, TCodePostal, TTel, TYear, TMonth, TDay;
-	
-	public CreatePerson(BaseDeDonnees PBdd){
+	Personne personne;
+	public ModifyPerson(BaseDeDonnees PBdd, Personne p){
 		
 		bdd = PBdd;
 		
-		setTitle("Créer une personne");
+		personne= p;
+		setTitle("Modifier une personne");
 		setVisible(true);
         setBounds(0,0,300,100); 
 		setSize(500, 500);
@@ -85,7 +86,16 @@ public class CreatePerson extends JFrame implements ActionListener {
 		TDay.setBounds(xText, 345,50,20);
 		TMonth.setBounds(xText += 60, 345,50,20);
 		TYear.setBounds(xText+=60, 345,50,20);
-
+		
+		TNom.setText(personne.getNom());
+		TPrenom.setText(personne.getPrenom());
+		TAdresse.setText(personne.getAdresse());
+		TCodePostal.setText(Integer.toString(personne.getCodePostable()));
+		TTel.setText(personne.getTel());
+		TDay.setText(Integer.toString(personne.getNaissance().getDayOfMonth()));
+		TMonth.setText(Integer.toString(personne.getNaissance().getMonthValue()));
+		TYear.setText(Integer.toString(personne.getNaissance().getYear()));
+		
 
 		
 		panel.add(TNom);
@@ -120,16 +130,15 @@ public class CreatePerson extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent pE) {
 		// TODO Auto-generated method stub
-		Personne p = new Personne();
-		p.setNom(TNom.getText());
-		p.setPrenom(TPrenom.getText());
-		p.setAdresse(TAdresse.getText());
-		p.setCodePostable(Integer.parseInt(TCodePostal.getText()));
-		p.setTel(TTel.getText());
-		p.setNaissance(LocalDate.of(Integer.parseInt(TYear.getText()), Integer.parseInt(TMonth.getText()), Integer.parseInt(TDay.getText())));
+		personne.setNom(TNom.getText());
+		personne.setPrenom(TPrenom.getText());
+		personne.setAdresse(TAdresse.getText());
+		personne.setCodePostable(Integer.parseInt(TCodePostal.getText()));
+		personne.setTel(TTel.getText());
+		personne.setNaissance(LocalDate.of(Integer.parseInt(TYear.getText()), Integer.parseInt(TMonth.getText()), Integer.parseInt(TDay.getText())));
 		
 		try {
-			bdd.insertPersonne(p);
+			bdd.UpdatePersonne(personne);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
