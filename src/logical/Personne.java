@@ -1,25 +1,36 @@
 package logical;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Personne {
 
 
+	int id;
 	String nom;
 	String prenom;
 	String adresse;
-	Date naissance;
+	LocalDate naissance;
 	int codePostable;
 	String tel;
 	
-	public Personne(String pNom, String pPrenom, String pAdresse, Date pNaissance, int pCodePostable, String pTel) {
-		super();
+	public Personne(){}
+	
+	public Personne(int pId, String pNom, String pPrenom, String pAdresse, LocalDate pDate, int pCodePostable, String pTel) {
+		id = pId;
 		nom = pNom;
 		prenom = pPrenom;
 		adresse = pAdresse;
-		naissance = pNaissance;
+		naissance = pDate;
 		codePostable = pCodePostable;
 		tel = pTel;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int pId) {
+		id = pId;
 	}
 
 	public String getNom() {
@@ -46,12 +57,12 @@ public class Personne {
 		adresse = pAdresse;
 	}
 
-	public Date getNaissance() {
+	public LocalDate getNaissance() {
 		return naissance;
 	}
 
-	public void setNaissance(Date pNaissance) {
-		naissance = pNaissance;
+	public void setNaissance(LocalDate pDate) {
+		naissance = pDate;
 	}
 
 	public int getCodePostable() {
