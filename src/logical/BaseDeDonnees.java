@@ -2,15 +2,11 @@ package logical;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
-
-import com.mysql.jdbc.PreparedStatement;
-
-import javafx.util.converter.LocalDateStringConverter;
 
 
 public class BaseDeDonnees {
@@ -25,7 +21,21 @@ public class BaseDeDonnees {
 		con = (Connection)
 		DriverManager.getConnection(pDriverName,pUserDataBase,pPasswordDataBase);
 	}
+
 	
+		public boolean logging (String pseudo, String password) throws SQLException, ParseException
+	{
+		PreparedStatement ps = con.prepareStatement("select * from admin where pseudo = ? AND mdp = ?");
+		ps.setString(1, pseudo);
+		ps.setString(2, password);
+		ResultSet rs = ps.executeQuery();
+		
+		rs.last();
+		
+		if (rs.getRow() > 0) return true;
+		return false;}
+	
+		
 	// Recupérer toutes les personnes
 	public ArrayList<Personne> GetEverybody() throws SQLException{
 		java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM personne");
