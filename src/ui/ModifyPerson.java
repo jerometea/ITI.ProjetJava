@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import logical.BaseDeDonnees;
 import logical.Personne;
 
-public class ModifyPerson extends JFrame implements ActionListener {
+public class ModifyPerson extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	BaseDeDonnees bdd;
@@ -24,15 +24,9 @@ public class ModifyPerson extends JFrame implements ActionListener {
 		
 		bdd = PBdd;
 		
-		personne= p;
-		setTitle("Modifier une personne");
-		setVisible(true);
-        setBounds(0,0,300,100); 
+		personne= p; 
 		setSize(500, 500);
-		setResizable(false);
-
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
+		setLayout(null);
 		
 		// Label
 		JLabel LNom, LPrenom, LAdresse, LCodePostal, LTel, LNaissance, LYear,LMonth,LDay;
@@ -57,15 +51,15 @@ public class ModifyPerson extends JFrame implements ActionListener {
 		LMonth.setBounds(260 + 60, 325,50,20);
 		LYear.setBounds(260+120, 325,50,20);
 		
-		panel.add(LNom);
-		panel.add(LPrenom);
-		panel.add(LAdresse);
-		panel.add(LCodePostal);
-		panel.add(LTel);
-		panel.add(LNaissance);
-		panel.add(LYear);
-		panel.add(LMonth);
-		panel.add(LDay);
+		add(LNom);
+		add(LPrenom);
+		add(LAdresse);
+		add(LCodePostal);
+		add(LTel);
+		add(LNaissance);
+		add(LYear);
+		add(LMonth);
+		add(LDay);
 		
 		//TextFields
 		TNom = new JTextField();
@@ -98,14 +92,14 @@ public class ModifyPerson extends JFrame implements ActionListener {
 		
 
 		
-		panel.add(TNom);
-		panel.add(TPrenom);
-		panel.add(TAdresse);
-		panel.add(TCodePostal);
-		panel.add(TTel);
-		panel.add(TYear);		
-		panel.add(TMonth);	
-		panel.add(TDay);	
+		add(TNom);
+		add(TPrenom);
+		add(TAdresse);
+		add(TCodePostal);
+		add(TTel);
+		add(TYear);		
+		add(TMonth);	
+		add(TDay);	
 		
 		// Buttons
 		JButton BBack, BCreate;		
@@ -115,35 +109,17 @@ public class ModifyPerson extends JFrame implements ActionListener {
 		BBack.setBounds(70, 400, 80, 20);
 		BCreate.setBounds(350, 400, 80, 20);
 		
-		panel.add(BBack);
-		panel.add(BCreate);
+		add(BBack);
+		add(BCreate);
 		
 		// Ecouteur
-		BCreate.addActionListener(this);
+
 		
 		
-		getContentPane().add(panel);
 		
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent pE) {
-		// TODO Auto-generated method stub
-		personne.setNom(TNom.getText());
-		personne.setPrenom(TPrenom.getText());
-		personne.setAdresse(TAdresse.getText());
-		personne.setCodePostable(Integer.parseInt(TCodePostal.getText()));
-		personne.setTel(TTel.getText());
-		personne.setNaissance(LocalDate.of(Integer.parseInt(TYear.getText()), Integer.parseInt(TMonth.getText()), Integer.parseInt(TDay.getText())));
-		
-		try {
-			bdd.UpdatePersonne(personne);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+
 	
 }

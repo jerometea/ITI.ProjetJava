@@ -4,10 +4,11 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class ListePersonnes extends JPanel {
-	public ListePersonnes() {
+	public ListePersonnes(Controller context) {
 		setSize(500, 500);
 		setLayout(null);
 		
@@ -23,6 +24,7 @@ public class ListePersonnes extends JPanel {
 		} else {
 			butCo = new JButton("Connexion");
 		}
+		
 		
 		this.add(butCreate);
 		this.add(butCo);

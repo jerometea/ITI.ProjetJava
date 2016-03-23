@@ -12,18 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import logical.*;
 
-public class Loging extends JFrame {
-	private static final long serialVersionUID = 1L;
+public class Loging extends JPanel {
 	
 	JTextField TPseudo = null, TPassword = null;
 	JLabel LMessage;
 	
 	public Loging() 
     { 
-         setTitle("Gestion d'esclave"); 
-         setBounds(0,0,300,100); 
-         setResizable(false);
-         setSize(500, 500);
+
+		setSize(500, 500);
+		setLayout(null);
          
          JLabel LPseudo, LPassword;
          JButton BPrevious, BConnect;
@@ -36,11 +34,16 @@ public class Loging extends JFrame {
          TPassword = new JTextField(20);
          BPrevious = new JButton("Retour"); 
          BConnect = new JButton("Connect"); 
-                
-         JPanel pano = new JPanel();
-         pano.setLayout(null);
          
          LMessage.setVisible(false);
+         
+         this.add(LMessage);
+         this.add(LPseudo); 
+         this.add(TPseudo);
+         this.add(LPassword);
+         this.add(TPassword);
+         this.add(BPrevious);
+         this.add(BConnect);
          
          LMessage.setBounds(150, 100, 250, 20);
          LPseudo.setBounds(225, 140, 60, 20);
@@ -50,18 +53,9 @@ public class Loging extends JFrame {
          BPrevious.setBounds(130, 300, 100, 20);
          BConnect.setBounds(270, 300, 100, 20);
          
-        Connect connect = new Connect(this);
-		BConnect.addActionListener(connect);
-         
-         pano.add(LMessage);
-         pano.add(LPseudo); 
-         pano.add(TPseudo);
-         pano.add(LPassword);
-         pano.add(TPassword);
-         pano.add(BPrevious);
-         pano.add(BConnect);
+        //Connect connect = new Connect(this);
+		//BConnect.addActionListener(connect);
                
-         getContentPane().add(pano);
     }
 
 	public String getPseudo() {
@@ -79,40 +73,4 @@ public class Loging extends JFrame {
 
 }
 
-class Connect implements ActionListener 
-{ 
-	Loging parent;
-	BaseDeDonnees bdd = new BaseDeDonnees();
-	
-	public Connect(Loging newParent)
-	{
-		parent = newParent;
-		
-		try {
-			bdd.getConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/projetjava", "root", "");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void actionPerformed(ActionEvent e) 
-	{ 
-		String pseudo = parent.getPseudo();
-		String password = parent.getPassword();
-		
 
-		try {
-			if (bdd.logging(pseudo, password)) parent.setMessage("Vous êtes connecté ! GG");
-			else parent.setMessage("Mauvais pseudo ou mot de passe");
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	} 
-}
