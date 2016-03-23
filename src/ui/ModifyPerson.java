@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,15 +15,14 @@ import javax.swing.JTextField;
 import logical.BaseDeDonnees;
 import logical.Personne;
 
-public class ModifyPerson extends JPanel {
+public class ModifyPerson extends JPanel implements ActionListener {
 	
-	private static final long serialVersionUID = 1L;
-	BaseDeDonnees bdd;
+	Controller _context;
 	JTextField TNom, TPrenom, TAdresse, TCodePostal, TTel, TYear, TMonth, TDay;
 	Personne personne;
-	public ModifyPerson(BaseDeDonnees PBdd, Personne p){
+	public ModifyPerson(Controller context, Personne p){
 		
-		bdd = PBdd;
+		_context = context;
 		
 		personne= p; 
 		setSize(500, 500);
@@ -90,8 +90,6 @@ public class ModifyPerson extends JPanel {
 		TMonth.setText(Integer.toString(personne.getNaissance().getMonthValue()));
 		TYear.setText(Integer.toString(personne.getNaissance().getYear()));
 		
-
-		
 		add(TNom);
 		add(TPrenom);
 		add(TAdresse);
@@ -113,11 +111,33 @@ public class ModifyPerson extends JPanel {
 		add(BCreate);
 		
 		// Ecouteur
-
-		
-		
-		
-		
+		BBack.addActionListener(this);
+		BCreate.addActionListener(this);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getActionCommand() == "Retour") {
+			_context.ChangePanel(new InfosPersonne(_context, personne), this);
+		}else if(e.getActionCommand() == "Valider") {
+			LocalDate birthday = LocalDate.now();
+			if(TMonth.getText().length() < 2) {
+				birthday = LocalDate.parse(TYear.getText()+"-0"+TMonth.getText()+"-"+TDay.getText());
+			} else if(TDay.getText().length() < 2) {
+				birthday = LocalDate.parse(TYear.getText()+"-"+TMonth.getText()+"-0"+TDay.getText());
+			} else {
+				birthday = LocalDate.parse(TYear.getText()+"-"+TMonth.getText()+"-"+TDay.getText());
+			}
+			
+			try {
+				Personne p = new Personne(personne.getId(), TNom.getText(), TPrenom.getText(), TAdresse.getText(), birthday, Integer.parseInt(TCodePostal.getText()), TTel.getText());
+				_context.ModifyPerson(p);
+				_context.ChangePanel(new InfosPersonne(_context, p), this);
+			} catch (NumberFormatException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 
 

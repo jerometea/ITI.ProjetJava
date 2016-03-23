@@ -18,7 +18,7 @@ public class Test {
 		Personne p = new Personne(1, "Morel", "Christophe", "Paris",LocalDate.of(1989, 6, 9), 75, "0182487585");
 		bdd.insertPersonne(p);
 		
-		Personne p1 = bdd.getPersone(p);
+		Personne p1 = bdd.getPersone(p.getId());
 		System.out.println(p1.getNom());
 		
 		ArrayList<Personne> listPersonne = new ArrayList<Personne>();
@@ -31,7 +31,7 @@ public class Test {
 		p1.setPrenom("pablo");
 		p1.setNaissance(LocalDate.of(1990,10,2));
 		bdd.UpdatePersonne(p1);
-		p = bdd.getPersone(p1);
+		p = bdd.getPersone(p1.getId());
 		System.out.println(p1.getNom() + " " + p1.getPrenom() + " " + p1.getNaissance() + " ");
 		
 		

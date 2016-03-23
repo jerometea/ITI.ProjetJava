@@ -12,14 +12,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import logical.*;
 
-public class Loging extends JPanel {
+public class Loging extends JPanel implements ActionListener {
 	
 	JTextField TPseudo = null, TPassword = null;
 	JLabel LMessage;
+	Controller _context;
 	
-	public Loging() 
+	public Loging(Controller context) 
     { 
-
+		_context = context;
 		setSize(500, 500);
 		setLayout(null);
          
@@ -54,7 +55,8 @@ public class Loging extends JPanel {
          BConnect.setBounds(270, 300, 100, 20);
          
         //Connect connect = new Connect(this);
-		//BConnect.addActionListener(connect);
+		BConnect.addActionListener(this);
+		BPrevious.addActionListener(this);
                
     }
 
@@ -69,6 +71,25 @@ public class Loging extends JPanel {
 	public void setMessage(String text) {
 		LMessage.setText(text);
 		LMessage.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.getActionCommand() == "Connect") {
+			try {
+				_context.Login(TPseudo.getText(), TPassword.getText());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			_context.ChangePanel(new ListePersonnes(_context), this);
+		} else if(arg0.getActionCommand() == "Retour") {
+			_context.ChangePanel(new ListePersonnes(_context), this);
+		}
 	}
 
 }

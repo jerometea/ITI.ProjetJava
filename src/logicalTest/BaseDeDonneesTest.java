@@ -39,7 +39,7 @@ public class BaseDeDonneesTest {
 		Personne p1 = new Personne(2, "Duval", "Thibaud", "Sous le pont des arts", LocalDate.of(1995, 10, 3), 75015, "0695487584");
 		bdd.insertPersonne(p1);
 		
-		Personne p2 = bdd.getPersone(p1);
+		Personne p2 = bdd.getPersone(p1.getId());
 		
 		assertEquals(p1.getId(), p2.getId());
 		assertEquals(p1.getNom(), p2.getNom());
@@ -88,7 +88,7 @@ public class BaseDeDonneesTest {
 		Personne p1 = new Personne(1, "Duval", "Thibaud", "Sous le pont des arts", LocalDate.of(1995, 10, 3), 75015, "0695487584");
 		bdd.insertPersonne(p1);
 		
-		Personne p2 = bdd.getPersone(p1);
+		Personne p2 = bdd.getPersone(p1.getId());
 		assertEquals(p1.getId(), p2.getId());
 		assertEquals(p1.getNom(), p2.getNom());
 		assertEquals(p1.getPrenom(), p2.getPrenom());
@@ -98,7 +98,7 @@ public class BaseDeDonneesTest {
 		assertEquals(p1.getTel(), p2.getTel());
 		
 		bdd.deletePersonne(p1);
-		p2 = bdd.getPersone(p1);
+		p2 = bdd.getPersone(p1.getId());
 		assertNull(p2);
 	}
 	
@@ -116,7 +116,7 @@ public class BaseDeDonneesTest {
 		
 		bdd.UpdatePersonne(p1);
 		
-		Personne p2 = bdd.getPersone(p1);
+		Personne p2 = bdd.getPersone(p1.getId());
 		
 		assertEquals(p1.getId(), p2.getId());
 		assertEquals(p1.getNom(), p2.getNom());
